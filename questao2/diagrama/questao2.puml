@@ -1,0 +1,60 @@
+@startuml questao2
+title Questão 2 - Matrículas Internacionais (Abstract Factory)
+
+interface DocumentoFiscal {
+  +descricao(): String
+}
+interface ProcessamentoPagamento {
+  +descricao(): String
+}
+interface ComprovanteMatricula {
+  +descricao(): String
+}
+
+class DocumentoFiscalBrasil
+class DocumentoFiscalChile
+class PagamentoPix
+class PagamentoWebpay
+class ComprovanteMatriculaBrasil
+class ComprovanteMatriculaChile
+
+interface FabricaArtefatosMatricula {
+  +criarDocumentoFiscal(): DocumentoFiscal
+  +criarProcessamentoPagamento(): ProcessamentoPagamento
+  +criarComprovanteMatricula(nomeAluno: String): ComprovanteMatricula
+}
+class FabricaBrasil
+class FabricaChile
+
+class Matricula {
+  -nomeAluno: String
+  -fabrica: FabricaArtefatosMatricula
+  +Matricula(nomeAluno: String, fabrica: FabricaArtefatosMatricula)
+  +confirmar(): void
+}
+class Main
+
+DocumentoFiscalBrasil ..|> DocumentoFiscal
+DocumentoFiscalChile ..|> DocumentoFiscal
+PagamentoPix ..|> ProcessamentoPagamento
+PagamentoWebpay ..|> ProcessamentoPagamento
+ComprovanteMatriculaBrasil ..|> ComprovanteMatricula
+ComprovanteMatriculaChile ..|> ComprovanteMatricula
+
+FabricaBrasil ..|> FabricaArtefatosMatricula
+FabricaChile ..|> FabricaArtefatosMatricula
+FabricaBrasil ..> DocumentoFiscalBrasil : cria
+FabricaBrasil ..> PagamentoPix : cria
+FabricaBrasil ..> ComprovanteMatriculaBrasil : cria
+FabricaChile ..> DocumentoFiscalChile : cria
+FabricaChile ..> PagamentoWebpay : cria
+FabricaChile ..> ComprovanteMatriculaChile : cria
+
+Matricula --> FabricaArtefatosMatricula : recebe no construtor
+Matricula ..> DocumentoFiscal
+Matricula ..> ProcessamentoPagamento
+Matricula ..> ComprovanteMatricula
+Main ..> Matricula
+Main ..> FabricaBrasil
+Main ..> FabricaChile
+@enduml

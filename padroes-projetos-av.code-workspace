@@ -1,0 +1,16 @@
+{
+  "folders": [
+    {
+      "path": "questao1"
+    },
+    {
+      "path": "questao2"
+    }
+  ],
+  "settings": {
+    "java.project.sourcePaths": [
+      "src"
+    ],
+    "java.project.outputPath": "bin"
+  }
+}
